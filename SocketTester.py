@@ -24,20 +24,17 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Remote
-import socket
+import BCISocket
 
-class BCISocket:
+class MainApplication:
     def __init__(self):
-        self.UDP_IP = "0.0.0.0"
-        self.UDP_PORT_RECV = 7500
-        self.UDP_PORT_SEND = 7501
+        self.socket = BCISocket.BCISocket()
 
-        self.bciSocketServer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.bciSocketServer.bind((self.UDP_IP, self.UDP_PORT_RECV))
-        print "Server Listening on port:", self.UDP_PORT_RECV
+    def main(self):
+        while True:
+            command = self.socket.waitForCommand()
+            print "COMMAND RECEIVED:", command
 
-    def waitForCommand(self):
-        data, addr = self.bciSocketServer.recvfrom(1024)
-        data = data.split()
-        return data
+if __name__ == "__main__":
+    app = MainApplication()
+    app.main()
