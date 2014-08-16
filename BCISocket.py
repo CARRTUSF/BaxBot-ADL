@@ -33,3 +33,9 @@ class BCISocket:
         self.UDP_PORT_RECV = 7500
         self.UDP_PORT_SEND = 7501
 
+        self.bciSocketServ = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.bciSocketServ.bind((self.UDP_IP, self.UDP_PORT_RECV))
+        print "Server Listening on port: ", self.UDP_IP
+
+    def waitForCommand(self):
+        pass
