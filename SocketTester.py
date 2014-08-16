@@ -32,8 +32,15 @@ class MainApplication:
 
     def main(self):
         while True:
-            command = self.socket.waitForCommand()
+            commandArgs = self.socket.waitForCommand()
+            self.parseAction(commandArgs)
+
+    def parseAction(self, commandArgs):
+        if len(commandArgs) > 0:
+            command = commandArgs[0]
+            commandArgs = commandArgs[1:]
             print "COMMAND RECEIVED:", command
+            print "ARGUMENTS:", commandArgs
 
 if __name__ == "__main__":
     app = MainApplication()

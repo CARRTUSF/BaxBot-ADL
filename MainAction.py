@@ -32,7 +32,7 @@ import BaxterControl
 import BaxterMoveIt
 
 # Pose Locations
-import Positions
+import BaxterPositions
 
 # Networking
 import BCISocket
@@ -61,11 +61,24 @@ class MainApplication:
 
     def main(self):
         while True:
-            command = self.socket.waitForCommand()
-            self.parseAction(command)
+            commandArgs = self.socket.waitForCommand()
+            self.parseAction(commandArgs)
 
-    def parseAction(self, command):
-        pass
+    def parseAction(self, commandArgs):
+        if len(commandArgs) > 0:
+            command = commandArgs[0]
+            commandArgs = commandArgs[1:]
+
+            print "COMMAND RECEIVED:", command
+
+            if command == "GO_TO_WAITING":
+                self.gotoWaiting()
+            elif command == "CAMERA_VIEW_CLOSE":
+                pass
+            elif command == "TRASH":
+                pass
+            else:
+                return False
 
     def gotoCamera(self, objectLoc):
         print "Going to camera location...."
@@ -73,7 +86,7 @@ class MainApplication:
 
     def gotoWaiting(self):
         print "Going to waiting position...."
-        return self.moveit.group.execute(self.moveit.createPath(Positions.waitingPose))
+        return self.moveit.group.execute(self.moveit.createPath(BaxterPositions.waitingPose))
 
     def trashObject(self, objectLoc):
         pass

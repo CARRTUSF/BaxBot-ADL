@@ -1,3 +1,3 @@
-pico2wave -l=en-US -w=/tmp/test.wav "$1"
-aplay /tmp/test.wav
-rm /tmp/test.wav
+pico2wave -l=en-US -w=/tmp/baxtertts.wav "$1"
+aplay /tmp/baxtertts.wav
+rm /tmp/baxtertts.wav
