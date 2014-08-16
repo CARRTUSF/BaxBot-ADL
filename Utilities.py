@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright (c) 2014, Andoni Aguirrezabal
 # All rights reserved.
 #

@@ -22,24 +22,4 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Baxter
-import baxter_interface
-from baxter_interface import CHECK_VERSION
-
-class BaxterControl:
-    def __init__(self):
-        # initialize interfaces
-        rs = baxter_interface.RobotEnable(CHECK_VERSION)
-        init_state = rs.state().enabled
-
-        self.leftGripper = baxter_interface.Gripper('left', CHECK_VERSION)
-        self.rightGripper = baxter_interface.Gripper('right', CHECK_VERSION)
-
-    def gripperCalibrate(self, selectedGripper):
-        if selectedGripper.lower() == 'left':
-            self.leftGripper.calibrate()
-        elif selectedGripper.lower() == 'right':
-            self.rightGripper.calibrate()
-        elif selectedGripper.lower() == 'both':
-            self.leftGripper.calibrate()
-            self.rightGripper.calibrate()
+waitingPose = [0.78439, 0.36181, 0.11532]

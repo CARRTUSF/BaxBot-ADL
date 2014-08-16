@@ -31,18 +31,23 @@ import rospy
 import BaxterControl
 import BaxterMoveIt
 
+# Pose Locations
+import Positions
+
 # Networking
 import BCISocket
 
 class MainApplication:
     def __init__(self):
+        # Initialize ROS node
         print "Initializing ROS...."
         rospy.init_node('carrt_demo_python', anonymous=True)
 
-    def main(self):
-        # Grab Baxter Controller & Calibrate Gripper
+        # Grab Baxter Controller
         print "Initializing Baxter...."
         self.baxter = BaxterControl.BaxterControl()
+
+        # Calibrate Gripper
         print "Calibrating Gripper...."
         self.baxter.gripperCalibrate("left")
 
@@ -51,13 +56,27 @@ class MainApplication:
         self.moveit = BaxterMoveIt.BaxterMoveIt()
 
         # Initialize Socket Engine
+        print "Initializing BCI Socket...."
         self.bciSocket = BCISocket.BCISocket()
 
-        self.gotoWaiting()
+    def main(self):
+        while True:
+            command = self.socket.waitForCommand()
+            self.parseAction(command)
+
+    def parseAction(self, command):
+        pass
+
+    def gotoCamera(self, objectLoc):
+        print "Going to camera location...."
+        return self.moveit.group.execute(self.moveit.createPath(objectLoc))
 
     def gotoWaiting(self):
-        print "Going to waiting position"
-        return self.moveit.group.execute(self.moveit.createPath([0.78439, 0.36181, 0.11532]))
+        print "Going to waiting position...."
+        return self.moveit.group.execute(self.moveit.createPath(Positions.waitingPose))
+
+    def trashObject(self, objectLoc):
+        pass
 
 if __name__ == "__main__":
     try:
