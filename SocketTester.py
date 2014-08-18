@@ -39,8 +39,32 @@ class MainApplication:
         if len(commandArgs) > 0:
             command = commandArgs[0]
             commandArgs = commandArgs[1:]
+
             print "COMMAND RECEIVED:", command
-            print "ARGUMENTS:", commandArgs
+
+            if command == "GO_TO_WAITING":
+                self.gotoWaiting()
+            elif command == "CAMERA_VIEW_CLOSE":
+                pass
+            elif command == "TRASH":
+                if(len(commandArgs) == 9):
+                    objectLoc = [float(listItem) for listItem in commandArgs[0:3]]
+                    objectRot = [float(listItem) for listItem in commandArgs[3:6]]
+                    trashLoc = [float(listItem) for listItem in commandArgs[6:9]]
+                    return self.trashObject(objectLoc, objectRot, trashLoc)
+                else:
+                    return False
+            else:
+                return False
+
+    def gotoCamera(self, objectLoc):
+        print "Going to camera location...."
+
+    def gotoWaiting(self):
+        print "Going to waiting position...."
+
+    def trashObject(self, objectLoc, objectRot, trashLoc):
+        return True
 
 if __name__ == "__main__":
     app = MainApplication()

@@ -76,7 +76,13 @@ class MainApplication:
             elif command == "CAMERA_VIEW_CLOSE":
                 pass
             elif command == "TRASH":
-                pass
+                if(len(commandArgs) == 9):
+                    objectLoc = [float(listItem) for listItem in commandArgs[0:3]]
+                    objectRot = [float(listItem) for listItem in commandArgs[3:6]]
+                    trashLoc = [float(listItem) for listItem in commandArgs[6:9]]
+                    return self.trashObject(objectLoc, objectRot, trashLoc)
+                else:
+                    return False
             else:
                 return False
 
@@ -88,8 +94,18 @@ class MainApplication:
         print "Going to waiting position...."
         return self.moveit.group.execute(self.moveit.createPath(BaxterPositions.waitingPose))
 
-    def trashObject(self, objectLoc):
-        pass
+    def trashObject(self, objectLoc, objectRot, trashLoc):
+        preObjectLoc = objectLoc
+        preObjectLoc[0] = preObjectLoc[0] - 50
+
+        print "Going to pre-object position"
+        preObjectPlan = self.moveit.createPath(preObjectLoc)
+
+        if self.moveit.execute(preObjectPlan):
+            return True
+        else:
+            print "Could not move to pre-object position!"
+            return False
 
 if __name__ == "__main__":
     try:
