@@ -24,6 +24,9 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+# Python
+import copy
+
 # ROS
 import rospy
 
@@ -60,8 +63,10 @@ class MainApplication:
         self.bciSocket = BCISocket.BCISocket()
 
     def main(self):
+    	self.testAction()
+
         while True:
-            commandArgs = self.socket.waitForCommand()
+            commandArgs = self.bciSocket.waitForCommand()
             self.parseAction(commandArgs)
 
     def parseAction(self, commandArgs):
@@ -86,6 +91,22 @@ class MainApplication:
             else:
                 return False
 
+    def testAction(self):
+        preObjectLoc = copy.deepcopy(BaxterPositions.objectOnePos)
+        preObjectLoc[0] = preObjectLoc[0] - 0.1
+
+        print "Going to pre-object position...."
+        preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.objectOneRot)
+        if not self.moveit.group.execute(preObjectPlan):
+            print "Could not move to pre-object position!"
+            return False
+
+        print "Going to object position...."
+        objectPlan = self.moveit.createPath(BaxterPositions.objectOnePos, BaxterPositions.objectOneRot)
+        if not self.moveit.group.execute(objectPlan):
+            print "Could not move to object position!"
+            return False
+
     def gotoCamera(self, objectLoc):
         print "Going to camera location...."
         return self.moveit.group.execute(self.moveit.createPath(objectLoc))
@@ -96,15 +117,18 @@ class MainApplication:
 
     def trashObject(self, objectLoc, objectRot, trashLoc):
         preObjectLoc = objectLoc
-        preObjectLoc[0] = preObjectLoc[0] - 50
+        preObjectLoc[0] = preObjectLoc[0] - 0.2
 
-        print "Going to pre-object position"
+        print "Going to pre-object position...."
         preObjectPlan = self.moveit.createPath(preObjectLoc)
-
-        if self.moveit.execute(preObjectPlan):
-            return True
-        else:
+        if not self.moveit.execute(preObjectPlan):
             print "Could not move to pre-object position!"
+            return False
+
+        print "Going to object position...."
+        objectPlan = self.moveit.createPath(objectLoc)
+        if not self.moveit.execute(objectPlan):
+            print "Could not move to object position!"
             return False
 
 if __name__ == "__main__":
