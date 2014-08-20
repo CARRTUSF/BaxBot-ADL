@@ -23,5 +23,6 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 waitingPose = [0.78439, 0.36181, 0.11532]
-objectOnePos = [0.90655, 0.180722, -0.00676128]
-objectOneRot = [-0.014345, 0.70062, -0.025133, 0.71295]
+normalRot = [-0.014345, 0.70062, -0.025133, 0.71295]
+objectOnePos = [0.962161, -0.149767, -0.015952]
+#trashPos = []

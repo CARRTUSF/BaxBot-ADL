@@ -96,13 +96,13 @@ class MainApplication:
         preObjectLoc[0] = preObjectLoc[0] - 0.1
 
         print "Going to pre-object position...."
-        preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.objectOneRot)
+        preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.normalRot)
         if not self.moveit.group.execute(preObjectPlan):
             print "Could not move to pre-object position!"
             return False
 
         print "Going to object position...."
-        objectPlan = self.moveit.createPath(BaxterPositions.objectOnePos, BaxterPositions.objectOneRot)
+        objectPlan = self.moveit.createPath(BaxterPositions.objectOnePos, BaxterPositions.normalRot)
         if not self.moveit.group.execute(objectPlan):
             print "Could not move to object position!"
             return False
@@ -116,19 +116,31 @@ class MainApplication:
         return self.moveit.group.execute(self.moveit.createPath(BaxterPositions.waitingPose))
 
     def trashObject(self, objectLoc, objectRot, trashLoc):
-        preObjectLoc = objectLoc
-        preObjectLoc[0] = preObjectLoc[0] - 0.2
+        preObjectLoc = copy.deepcopy(objectLoc)
+        preObjectLoc[0] = preObjectLoc[0] - 0.15
 
         print "Going to pre-object position...."
-        preObjectPlan = self.moveit.createPath(preObjectLoc)
+        preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.normalRot)
         if not self.moveit.execute(preObjectPlan):
             print "Could not move to pre-object position!"
             return False
 
+        print "Opening gripper...."
+        self.baxter.leftGripper.command_position(100)
+
         print "Going to object position...."
-        objectPlan = self.moveit.createPath(objectLoc)
+        objectPlan = self.moveit.createPath(objectLoc, BaxterPositions.normalRot)
         if not self.moveit.execute(objectPlan):
             print "Could not move to object position!"
+            return False
+
+        print "Closing gripper..."
+        self.baxter.leftGripper.command_position(65)
+
+        print "Going back to pre-object position...."
+        preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.normalRot)
+        if not self.moveit.execute(preObjectPlan):
+            print "Could not move to pre-object position!"
             return False
 
 if __name__ == "__main__":
