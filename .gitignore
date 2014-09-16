@@ -1,0 +1,15 @@
+# PYCHARM IDE
+/.idea/*
+
+# PYTHON COMPILED
+*.pyc
+
+# OPESRC PROJECT
+/OPE-Src/nbproject/private/*
+/OPE-Src/bin/*
+/OPE-Src/build/*
+
+# OTHER
+/OPE-Release/ope-new
+/OPE-Release/output.png
+/audio.flac

@@ -1,0 +1,2 @@
+./ope-new
+killall XnSensorServer
