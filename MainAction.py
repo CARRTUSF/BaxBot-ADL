@@ -63,65 +63,75 @@ class MainApplication:
         self.bciSocket = BCISocket.BCISocket()
 
     def main(self):
-    	self.testAction()
-
         while True:
             commandArgs = self.bciSocket.waitForCommand()
-            self.parseAction(commandArgs)
+            if (self.parseAction(commandArgs)):
+                print "Action complete!"
+                self.bciSocket.sendMessage("DONE\n")
 
     def parseAction(self, commandArgs):
-        if len(commandArgs) > 0:
-            command = commandArgs[0]
-            commandArgs = commandArgs[1:]
+        if len(commandArgs) > 1:
+            if commandArgs[0] == "COMMAND":
+                command = commandArgs[1]
+                commandArgs = commandArgs[2:]
 
-            print "COMMAND RECEIVED:", command
+                print "COMMAND RECEIVED:", command
 
-            if command == "GO_TO_WAITING":
-                self.gotoWaiting()
-            elif command == "CAMERA_VIEW_CLOSE":
-                pass
-            elif command == "TRASH":
-                if(len(commandArgs) == 9):
-                    objectLoc = [float(listItem) for listItem in commandArgs[0:3]]
-                    objectRot = [float(listItem) for listItem in commandArgs[3:6]]
-                    trashLoc = [float(listItem) for listItem in commandArgs[6:9]]
-                    return self.trashObject(objectLoc, objectRot, trashLoc)
+                if command == "GO_TO_WAITING":
+                    return self.gotoWaiting()
+                elif command == "CAMERA_VIEW_CLOSE":
+                    if(len(commandArgs) == 6):
+                        objectLoc = [(float(listItem)/1000) for listItem in commandArgs[0:3]]
+                        return self.gotoCamera(objectLoc)
+                    else:
+                        return False
+                elif command == "TRASH":
+                    if(len(commandArgs) == 9):
+                        objectLoc = [(float(listItem)/1000) for listItem in commandArgs[0:3]]
+                        objectRot = [float(listItem) for listItem in commandArgs[3:6]]
+                        trashLoc = [float(listItem) for listItem in commandArgs[6:9]]
+                        return self.trashObject(objectLoc, objectRot, trashLoc)
+                    else:
+                        return False
                 else:
+                    print "Message Format Wrong (Action Not Implemented)!"
                     return False
             else:
+                print "Message Format Wrong (KEYWORD Missing)!"
                 return False
+        else:
+            print "Message Format Wrong (Not Enough Arguments)!"
+            return False
 
-    def testAction(self):
-        preObjectLoc = copy.deepcopy(BaxterPositions.objectOnePos)
-        preObjectLoc[0] = preObjectLoc[0] - 0.1
+    def gotoCamera(self, objectLoc):
+        print "Going to camera position...."
+        if (self.moveit.group.execute(self.moveit.createPath(objectLoc))):
+            return True
+        else:
+            print "Could not move to camera position!"
+            return False
+
+    def gotoWaiting(self):
+        print "Going to waiting position...."
+        waitingPlan = self.moveit.createPath(BaxterPositions.waitingPose, BaxterPositions.normalRot)
+        if (self.moveit.group.execute(waitingPlan)):
+            return True
+        else:
+            print "Could not move to waiting position!"
+            return False
+
+    def trashObject(self, objectLoc, objectRot, trashLoc):
+        # PRE-OBJECT POSE
+        preObjectLoc = copy.deepcopy(objectLoc)
+        preObjectLoc[0] = preObjectLoc[0] # subtract 0.2 meters in x
+
+        # PRE-OBJECT POSE (RAISED)
+        preObjectRaisedLoc = copy.deepcopy(preObjectLoc)
+        preObjectRaisedLoc = preObjectRaisedLoc[1] + 0.2
 
         print "Going to pre-object position...."
         preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.normalRot)
         if not self.moveit.group.execute(preObjectPlan):
-            print "Could not move to pre-object position!"
-            return False
-
-        print "Going to object position...."
-        objectPlan = self.moveit.createPath(BaxterPositions.objectOnePos, BaxterPositions.normalRot)
-        if not self.moveit.group.execute(objectPlan):
-            print "Could not move to object position!"
-            return False
-
-    def gotoCamera(self, objectLoc):
-        print "Going to camera location...."
-        return self.moveit.group.execute(self.moveit.createPath(objectLoc))
-
-    def gotoWaiting(self):
-        print "Going to waiting position...."
-        return self.moveit.group.execute(self.moveit.createPath(BaxterPositions.waitingPose))
-
-    def trashObject(self, objectLoc, objectRot, trashLoc):
-        preObjectLoc = copy.deepcopy(objectLoc)
-        preObjectLoc[0] = preObjectLoc[0] - 0.15
-
-        print "Going to pre-object position...."
-        preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.normalRot)
-        if not self.moveit.execute(preObjectPlan):
             print "Could not move to pre-object position!"
             return False
 
@@ -130,17 +140,31 @@ class MainApplication:
 
         print "Going to object position...."
         objectPlan = self.moveit.createPath(objectLoc, BaxterPositions.normalRot)
-        if not self.moveit.execute(objectPlan):
+        if not self.moveit.group.execute(objectPlan):
             print "Could not move to object position!"
             return False
 
         print "Closing gripper..."
         self.baxter.leftGripper.command_position(65)
 
-        print "Going back to pre-object position...."
-        preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.normalRot)
-        if not self.moveit.execute(preObjectPlan):
-            print "Could not move to pre-object position!"
+        print "Going to pre-object (raised) position...."
+        preObjectRaisedPlan = self.moveit.createPath(preObjectRaisedLoc, BaxterPositions.normalRot)
+        if not self.moveit.group.execute(preObjectRaisedPlan):
+            print "Could not move to pre-object (raised) position!"
+            return False
+
+        print "Going to trash position...."
+        trashObjectPlan = self.moveit.createPath(BaxterPositions.trashPos, BaxterPositions.normalRot)
+        if not self.moveit.group.execute(trashObjectPlan):
+            print "Could not move to trash position!"
+            return False
+
+        print "Opening gripper...."
+        self.baxter.leftGripper.command_position(100)
+
+        if (self.gotoWaiting()):
+            return True
+        else:
             return False
 
 if __name__ == "__main__":

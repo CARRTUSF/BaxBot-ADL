@@ -27,13 +27,22 @@ import socket
 
 class BCISocket:
     def __init__(self):
-        self.UDP_IP = "0.0.0.0"
+        self.UDP_SERVER_IP = "0.0.0.0"
         self.UDP_PORT_RECV = 7500
+
+        self.UDP_CLIENT_IP = "192.168.1.126"
         self.UDP_PORT_SEND = 7501
 
         self.bciSocketServer = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.bciSocketServer.bind((self.UDP_IP, self.UDP_PORT_RECV))
+        self.bciSocketServer.bind((self.UDP_SERVER_IP, self.UDP_PORT_RECV))
+        self.bciSocketServer.settimeout(None)
         print "Server Listening on port:", self.UDP_PORT_RECV
+
+        self.bciSocketClient = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        print "Client Sending on port:", self.UDP_PORT_SEND
+
+    def sendMessage(self, message):
+        self.bciSocketClient.sendto(message, (self.UDP_CLIENT_IP, self.UDP_PORT_SEND))
 
     def waitForCommand(self):
         data, addr = self.bciSocketServer.recvfrom(1024)
