@@ -19,7 +19,7 @@ def loadOPEResults():
     global tablePos
     global tableSize
 
-    ope_results = open("./OPE/OPE-Results.txt")
+    ope_results = open("./OPE-Release/OPE-Results.txt")
 
     objCount = int(ope_results.readline())
     selectedObject = int(ope_results.readline())
@@ -33,9 +33,16 @@ def loadOPEResults():
             temp_objPos = [float(x) for x in ope_results.readline().split()]
             temp_objSize = [float(x) for x in ope_results.readline().split()]
             temp_objRot = [float(x) for x in ope_results.readline().split()]
+
+            temp_objPos[0] = temp_objPos[0] - 0.05
+
             objList.append({'objNumber':k,
                             'objPos':temp_objPos,
                             'objSize':temp_objSize,
                             'objRot':temp_objRot})
 
     ope_results.close()
+
+def showOPEResults():
+    subprocess.Popen("ristretto output.png", shell=True,
+                     cwd="./OPE-Release/")
