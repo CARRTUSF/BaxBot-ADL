@@ -35,6 +35,17 @@ class BaxterControl:
         self.leftGripper = baxter_interface.Gripper('left', CHECK_VERSION)
         self.rightGripper = baxter_interface.Gripper('right', CHECK_VERSION)
 
+        # MANUAL JOINT CONTROL
+        self.leftLimb = baxter_interface.Limb('left')
+        self.rightLimb = baxter_interface.Limb('right')
+        self.manualJointAccuracy = baxter_interface.settings.JOINT_ANGLE_TOLERANCE
+        self.manualJointTimeout = 20.0
+
+        # JOINT SPEEDS
+        self.manualJointSpeed = 0.3
+        self.leftLimb.set_joint_position_speed(self.manualJointSpeed)
+        self.rightLimb.set_joint_position_speed(self.manualJointSpeed)
+
     def gripperCalibrate(self, selectedGripper):
         if selectedGripper.lower() == 'left':
             self.leftGripper.calibrate()
@@ -43,3 +54,9 @@ class BaxterControl:
         elif selectedGripper.lower() == 'both':
             self.leftGripper.calibrate()
             self.rightGripper.calibrate()
+
+    def setJointPositions(self, jointPositions, selectedLimb):
+        if selectedLimb.lower() == 'left':
+            self.leftLimb.move_to_joint_positions(jointPositions, self.manualJointTimeout, self.manualJointAccuracy)
+        elif selectedLimb.lower() == 'right':
+            self.rightLimb.move_to_joint_positions(jointPositions, self.manualJointTimeout, self.manualJointAccuracy)

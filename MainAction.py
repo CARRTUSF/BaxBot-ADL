@@ -1,5 +1,4 @@
 # ROS
-from tkFileDialog import Open
 import rospy
 
 # Baxter
@@ -42,9 +41,9 @@ class MainApplication:
             rospy.sleep(2)
 
             if OPEAssist.objCount > 0:
-                # self.moveit.addObject("TABLE",
-                #                       OPEAssist.tablePos,
-                #                       OPEAssist.tableSize)
+                self.moveit.addObject("TABLE",
+                                      OPEAssist.tablePos,
+                                      OPEAssist.tableSize)
 
                 for x in OPEAssist.objList:
                     self.moveit.addObject("OBJECT" + str(x['objNumber']),
@@ -83,14 +82,17 @@ class MainApplication:
             print "Could not move to waiting position!"
             return False
 
+    def setJointPositioWaiting(self):
+        self.baxter.setJointPositions(BaxterPositions.goodWaitingPose, "left")
+
     def bringToUser(self, objectLoc, objectRot, objectNum):
         # PRE-OBJECT POSE
         preObjectLoc = copy.deepcopy(objectLoc)
-        preObjectLoc[0] = preObjectLoc[0] - 0.12 # subtract 0.12 meters in x
+        preObjectLoc[0] = preObjectLoc[0] - 0.1 # subtract 0.1 meters in x
 
         # PRE-OBJECT POSE (RAISED)
         preObjectRaisedLoc = copy.deepcopy(preObjectLoc)
-        preObjectRaisedLoc[1] = preObjectRaisedLoc[1] + 0.2
+        preObjectRaisedLoc[2] = preObjectRaisedLoc[2] + 0.4
 
         print "Going to pre-object position...."
         preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.normalRot)
@@ -99,27 +101,29 @@ class MainApplication:
             return False
 
         self.moveit.scene.remove_world_object("OBJECT" + str(objectNum))
+        rospy.sleep(1)
 
         print "Opening gripper...."
         self.baxter.leftGripper.command_position(100)
+        rospy.sleep(1)
 
         print "Going to object position...."
         objectPlan = self.moveit.createPath(objectLoc, BaxterPositions.normalRot)
         if not self.moveit.group.execute(objectPlan):
             print "Could not move to object position!"
             return False
+        rospy.sleep(1)
 
         print "Closing gripper..."
-        self.baxter.leftGripper.command_position(65)
+        self.baxter.leftGripper.command_position(0)
+        rospy.sleep(1)
 
         print "Going to pre-object (raised) position...."
         preObjectRaisedPlan = self.moveit.createPath(preObjectRaisedLoc, BaxterPositions.normalRot)
         if not self.moveit.group.execute(preObjectRaisedPlan):
             print "Could not move to pre-object (raised) position!"
             return False
-
-        if not self.gotoWaiting():
-            return False
+        rospy.sleep(1)
 
         raw_input("Reverse PowerBot and Navigate to User Now....")
 
@@ -131,7 +135,7 @@ class MainApplication:
     def trashObject(self, objectLoc, objectRot, trashLoc, objectNum):
         # PRE-OBJECT POSE
         preObjectLoc = copy.deepcopy(objectLoc)
-        preObjectLoc[0] = preObjectLoc[0] - 0.12 # subtract 0.2 meters in x
+        preObjectLoc[0] = preObjectLoc[0] - 0.1 # subtract 0.1 meters in x
 
         # PRE-OBJECT POSE (RAISED)
         preObjectRaisedLoc = copy.deepcopy(preObjectLoc)
@@ -158,7 +162,7 @@ class MainApplication:
         rospy.sleep(1)
 
         print "Closing gripper..."
-        self.baxter.leftGripper.command_position(65)
+        self.baxter.leftGripper.command_position(0)
         rospy.sleep(1)
 
         print "Going to pre-object (raised) position...."
@@ -178,6 +182,8 @@ class MainApplication:
         print "Opening gripper...."
         self.baxter.leftGripper.command_position(100)
         rospy.sleep(1)
+
+        self.setJointPositioWaiting()
 
         if self.gotoWaiting():
             return True
