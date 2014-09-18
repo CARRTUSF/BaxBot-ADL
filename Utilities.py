@@ -1,9 +1,9 @@
 import subprocess
 
 def speak(message, wait=True):
-    speak_process = subprocess.Popen('espeak "' + message + '"', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    if wait:
-        speak_process.wait()
+   speak_process = subprocess.Popen('./untitled.sh "' + message + '"', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+   if wait:
+       speak_process.wait()
 
 def criticalError(message):
     critical_sound_process = subprocess.Popen('aplay pacman_death.wav', shell=True,
