@@ -39,7 +39,8 @@ class BaxterMoveIt:
         # initialize MoveIt
         self.robot = moveit_commander.RobotCommander()
         self.scene = moveit_commander.PlanningSceneInterface()
-        self.group = moveit_commander.MoveGroupCommander("left_arm")
+        self.leftGroup = moveit_commander.MoveGroupCommander("left_arm")
+        self.rightGroup = moveit_commander.MoveGroupCommander("right_arm")
         self.display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
                                                             moveit_msgs.msg.DisplayTrajectory)
 
@@ -61,17 +62,23 @@ class BaxterMoveIt:
         objPose.pose.orientation.w = objRot[3]
         self.scene.add_box(objName, objPose, (objSize[0], objSize[1], objSize[2]))
 
-    def createPath(self, objPos, gripperOrientation = [0, 0.74419, 0, 0.6679]):
+    def createPath(self, objpos, arm=0, gripperorientation=[0, 0.74419, 0, 0.6679]):
         pose_target = geometry_msgs.msg.Pose()
-        pose_target.orientation.x = gripperOrientation[0]
-        pose_target.orientation.y = gripperOrientation[1]
-        pose_target.orientation.z = gripperOrientation[2]
-        pose_target.orientation.w = gripperOrientation[3]
-        pose_target.position.x = objPos[0]
-        pose_target.position.y = objPos[1]
-        pose_target.position.z = objPos[2]
+        pose_target.orientation.x = gripperorientation[0]
+        pose_target.orientation.y = gripperorientation[1]
+        pose_target.orientation.z = gripperorientation[2]
+        pose_target.orientation.w = gripperorientation[3]
+        pose_target.position.x = objpos[0]
+        pose_target.position.y = objpos[1]
+        pose_target.position.z = objpos[2]
 
-        self.group.set_start_state_to_current_state()
-        self.group.set_pose_target(pose_target)
+        if arm == 0:
+            self.leftGroup.set_start_state_to_current_state()
+            self.leftGroup.set_pose_target(pose_target)
 
-        return self.group.plan()
+            return self.leftGroup.plan()
+        else:
+            self.rightGroup.set_start_state_to_current_state()
+            self.rightGroup.set_pose_target(pose_target)
+
+            return self.rightGroup.plan()

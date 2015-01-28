@@ -152,11 +152,11 @@ class MainApplication:
         rospy.sleep(1)
 
         print "Going to object (raised) position...."
-		# speak("Going to object (raised) position....")
+        # speak("Going to object (raised) position....")
         objectRaisedPlan = self.moveit.createPath(objectRaisedLoc, BaxterPositions.normalRot)
         if not self.moveit.group.execute(objectRaisedPlan):
             print "Could not move to object (raised) position!"
-			# speak("Could not move to object (raised) position!")
+            # speak("Could not move to object (raised) position!")
             return False
         rospy.sleep(1)
 
@@ -166,11 +166,11 @@ class MainApplication:
         raw_input("Reverse PowerBot and Navigate to User Now....")
 
         print "Going to extended (raised) position...."
-		# speak("Going to extended (raised) position....")
+        # speak("Going to extended (raised) position....")
         extendRaisedPlan = self.moveit.createPath(extendRaisedLoc, BaxterPositions.normalRot)
         if not self.moveit.group.execute(extendRaisedPlan):
             print "Could not move to extended (raised) position!"
-			# speak("Could not move to extended (raised) position!")
+            # speak("Could not move to extended (raised) position!")
             return False
         rospy.sleep(1)
 

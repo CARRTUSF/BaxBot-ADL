@@ -35,15 +35,15 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/_ext/1376241646/InertiaCalculations.o \
-	${OBJECTDIR}/_ext/1376241646/Minimization.o \
-	${OBJECTDIR}/_ext/1376241646/OPEMain.o \
-	${OBJECTDIR}/_ext/1376241646/OPESettings.o \
-	${OBJECTDIR}/_ext/1376241646/OPEUtils.o \
-	${OBJECTDIR}/_ext/1376241646/ObjectPoseEstimator.o \
-	${OBJECTDIR}/_ext/1376241646/Plane.o \
-	${OBJECTDIR}/_ext/1376241646/PointCloudCapture.o \
-	${OBJECTDIR}/_ext/1376241646/SQFitting.o
+	${OBJECTDIR}/src/InertiaCalculations.o \
+	${OBJECTDIR}/src/Minimization.o \
+	${OBJECTDIR}/src/OPEMain.o \
+	${OBJECTDIR}/src/OPESettings.o \
+	${OBJECTDIR}/src/OPEUtils.o \
+	${OBJECTDIR}/src/ObjectPoseEstimator.o \
+	${OBJECTDIR}/src/Plane.o \
+	${OBJECTDIR}/src/PointCloudCapture.o \
+	${OBJECTDIR}/src/SQFitting.o
 
 
 # C Compiler Flags
@@ -70,50 +70,50 @@ bin/${CND_CONF}/${CND_PLATFORM}/ope-new: ${OBJECTFILES}
 	${MKDIR} -p bin/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o bin/${CND_CONF}/${CND_PLATFORM}/ope-new ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/_ext/1376241646/InertiaCalculations.o: /home/neroxtu/Desktop/MYAH/OPE-New/src/InertiaCalculations.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1376241646
+${OBJECTDIR}/src/InertiaCalculations.o: src/InertiaCalculations.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1376241646/InertiaCalculations.o /home/neroxtu/Desktop/MYAH/OPE-New/src/InertiaCalculations.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/InertiaCalculations.o src/InertiaCalculations.cpp
 
-${OBJECTDIR}/_ext/1376241646/Minimization.o: /home/neroxtu/Desktop/MYAH/OPE-New/src/Minimization.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1376241646
+${OBJECTDIR}/src/Minimization.o: src/Minimization.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1376241646/Minimization.o /home/neroxtu/Desktop/MYAH/OPE-New/src/Minimization.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Minimization.o src/Minimization.cpp
 
-${OBJECTDIR}/_ext/1376241646/OPEMain.o: /home/neroxtu/Desktop/MYAH/OPE-New/src/OPEMain.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1376241646
+${OBJECTDIR}/src/OPEMain.o: src/OPEMain.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1376241646/OPEMain.o /home/neroxtu/Desktop/MYAH/OPE-New/src/OPEMain.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OPEMain.o src/OPEMain.cpp
 
-${OBJECTDIR}/_ext/1376241646/OPESettings.o: /home/neroxtu/Desktop/MYAH/OPE-New/src/OPESettings.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1376241646
+${OBJECTDIR}/src/OPESettings.o: src/OPESettings.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1376241646/OPESettings.o /home/neroxtu/Desktop/MYAH/OPE-New/src/OPESettings.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OPESettings.o src/OPESettings.cpp
 
-${OBJECTDIR}/_ext/1376241646/OPEUtils.o: /home/neroxtu/Desktop/MYAH/OPE-New/src/OPEUtils.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1376241646
+${OBJECTDIR}/src/OPEUtils.o: src/OPEUtils.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1376241646/OPEUtils.o /home/neroxtu/Desktop/MYAH/OPE-New/src/OPEUtils.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OPEUtils.o src/OPEUtils.cpp
 
-${OBJECTDIR}/_ext/1376241646/ObjectPoseEstimator.o: /home/neroxtu/Desktop/MYAH/OPE-New/src/ObjectPoseEstimator.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1376241646
+${OBJECTDIR}/src/ObjectPoseEstimator.o: src/ObjectPoseEstimator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1376241646/ObjectPoseEstimator.o /home/neroxtu/Desktop/MYAH/OPE-New/src/ObjectPoseEstimator.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ObjectPoseEstimator.o src/ObjectPoseEstimator.cpp
 
-${OBJECTDIR}/_ext/1376241646/Plane.o: /home/neroxtu/Desktop/MYAH/OPE-New/src/Plane.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1376241646
+${OBJECTDIR}/src/Plane.o: src/Plane.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1376241646/Plane.o /home/neroxtu/Desktop/MYAH/OPE-New/src/Plane.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Plane.o src/Plane.cpp
 
-${OBJECTDIR}/_ext/1376241646/PointCloudCapture.o: /home/neroxtu/Desktop/MYAH/OPE-New/src/PointCloudCapture.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1376241646
+${OBJECTDIR}/src/PointCloudCapture.o: src/PointCloudCapture.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1376241646/PointCloudCapture.o /home/neroxtu/Desktop/MYAH/OPE-New/src/PointCloudCapture.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/PointCloudCapture.o src/PointCloudCapture.cpp
 
-${OBJECTDIR}/_ext/1376241646/SQFitting.o: /home/neroxtu/Desktop/MYAH/OPE-New/src/SQFitting.cpp 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1376241646
+${OBJECTDIR}/src/SQFitting.o: src/SQFitting.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1376241646/SQFitting.o /home/neroxtu/Desktop/MYAH/OPE-New/src/SQFitting.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/SQFitting.o src/SQFitting.cpp
 
 # Subprojects
 .build-subprojects:
