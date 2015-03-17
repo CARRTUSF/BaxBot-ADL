@@ -97,8 +97,8 @@ class MainApplication:
         print "Going to waiting position...."
         # speak("Going to waiting position....")
 
-        waitingPlan = self.moveit.createPath(BaxterPositions.waitingPos, BaxterPositions.waitingRot)
-        if self.moveit.group.execute(waitingPlan):
+        waitingPlan = self.moveit.createPath(BaxterPositions.waitingPos, 0, BaxterPositions.waitingRot)
+        if self.moveit.leftGroup.execute(waitingPlan):
             return True
         else:
             print "Could not move to waiting position!"
@@ -123,8 +123,8 @@ class MainApplication:
 
         print "Going to pre-object position...."
         # speak("Going to pre-object position....")
-        preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.normalRot)
-        if not self.moveit.group.execute(preObjectPlan):
+        preObjectPlan = self.moveit.createPath(preObjectLoc, 0, BaxterPositions.normalRot)
+        if not self.moveit.leftGroup.execute(preObjectPlan):
             print "Could not move to pre-object position!"
             # speak("Could not move to pre-object position!")
             return False
@@ -139,8 +139,8 @@ class MainApplication:
 
         print "Going to object position...."
         # speak("Going to object position....")
-        objectPlan = self.moveit.createPath(objectLoc, BaxterPositions.normalRot)
-        if not self.moveit.group.execute(objectPlan):
+        objectPlan = self.moveit.createPath(objectLoc, 0, BaxterPositions.normalRot)
+        if not self.moveit.leftGroup.execute(objectPlan):
             print "Could not move to object position!"
             # speak("Could not move to object position!")
             return False
@@ -153,8 +153,8 @@ class MainApplication:
 
         print "Going to object (raised) position...."
         # speak("Going to object (raised) position....")
-        objectRaisedPlan = self.moveit.createPath(objectRaisedLoc, BaxterPositions.normalRot)
-        if not self.moveit.group.execute(objectRaisedPlan):
+        objectRaisedPlan = self.moveit.createPath(objectRaisedLoc, 0, BaxterPositions.normalRot)
+        if not self.moveit.leftGroup.execute(objectRaisedPlan):
             print "Could not move to object (raised) position!"
             # speak("Could not move to object (raised) position!")
             return False
@@ -167,8 +167,8 @@ class MainApplication:
 
         print "Going to extended (raised) position...."
         # speak("Going to extended (raised) position....")
-        extendRaisedPlan = self.moveit.createPath(extendRaisedLoc, BaxterPositions.normalRot)
-        if not self.moveit.group.execute(extendRaisedPlan):
+        extendRaisedPlan = self.moveit.createPath(extendRaisedLoc, 0, BaxterPositions.normalRot)
+        if not self.moveit.leftGroup.execute(extendRaisedPlan):
             print "Could not move to extended (raised) position!"
             # speak("Could not move to extended (raised) position!")
             return False
@@ -194,8 +194,8 @@ class MainApplication:
 
         print "Going to pre-object position...."
         # speak("Going to pre-object position....")
-        preObjectPlan = self.moveit.createPath(preObjectLoc, BaxterPositions.normalRot)
-        if not self.moveit.group.execute(preObjectPlan):
+        preObjectPlan = self.moveit.createPath(preObjectLoc, 0, BaxterPositions.normalRot)
+        if not self.moveit.leftGroup.execute(preObjectPlan):
             print "Could not move to pre-object position!"
             speak("Could not move to pre-object position!")
             return False
@@ -210,8 +210,8 @@ class MainApplication:
 
         print "Going to object position...."
         # speak("Going to object position....")
-        objectPlan = self.moveit.createPath(objectLoc, BaxterPositions.normalRot)
-        if not self.moveit.group.execute(objectPlan):
+        objectPlan = self.moveit.createPath(objectLoc, 0, BaxterPositions.normalRot)
+        if not self.moveit.leftGroup.execute(objectPlan):
             print "Could not move to object position!"
             return False
         rospy.sleep(1)
@@ -223,8 +223,8 @@ class MainApplication:
 
         print "Going to object (raised) position...."
 		# speak("Going to object (raised) position....")
-        objectRaisedPlan = self.moveit.createPath(objectRaisedLoc, BaxterPositions.normalRot)
-        if not self.moveit.group.execute(objectRaisedPlan):
+        objectRaisedPlan = self.moveit.createPath(objectRaisedLoc, 0, BaxterPositions.normalRot)
+        if not self.moveit.leftGroup.execute(objectRaisedPlan):
             print "Could not move to object (raised) position!"
 			# speak("Could not move to object (raised) position!")
             return False
@@ -235,8 +235,8 @@ class MainApplication:
 
         print "Going to trash position...."
         # speak("Going to trash position....")
-        trashObjectPlan = self.moveit.createPath(trashLoc, BaxterPositions.normalRot)
-        if not self.moveit.group.execute(trashObjectPlan):
+        trashObjectPlan = self.moveit.createPath(trashLoc, 0, BaxterPositions.normalRot)
+        if not self.moveit.leftGroup.execute(trashObjectPlan):
             print "Could not move to trash position!"
             speak("Could not move to trash position!")
             return False

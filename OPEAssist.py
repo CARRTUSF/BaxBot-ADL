@@ -29,9 +29,9 @@ def loadOPEResults():
         tableSize = [float(x) for x in ope_results.readline().split()]
 
         # GLOBAL TABLE ADJUSTMENT
-        tablePos[0] = tablePos[0] - 0.14 # X
-        tablePos[1] = tablePos[1] - 0.02 # Y
-        tablePos[2] = tablePos[2] - 0.08 # Z
+        tablePos[0] = tablePos[0] - 0 # X
+        tablePos[1] = tablePos[1] - 0 # Y
+        tablePos[2] = tablePos[2] - 0 # Z
 
         for k in range(objCount):
             ope_results.readline()
@@ -40,9 +40,9 @@ def loadOPEResults():
             temp_objRot = [float(x) for x in ope_results.readline().split()]
 
             # GLOBAL OBJECT ADJUSTMENT
-            temp_objPos[0] = temp_objPos[0] - 0.15 # X
-            temp_objPos[1] = temp_objPos[1] - 0.02 # Y
-            temp_objPos[2] = temp_objPos[2] - 0.00 # Z
+            temp_objPos[0] = temp_objPos[0] - 0# X
+            temp_objPos[1] = temp_objPos[1] - 0 # Y
+            temp_objPos[2] = temp_objPos[2] - 0 # Z
 
             objList.append({'objNumber':k,
                             'objPos':temp_objPos,

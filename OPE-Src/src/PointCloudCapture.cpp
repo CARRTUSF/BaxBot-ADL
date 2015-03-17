@@ -25,7 +25,6 @@ void PointCloudCapture::cloudCallback(const pcl::PointCloud<pcl::PointXYZRGBA>::
     std::cout << "New Cloud Captured!\n";
 }
 
-
 void PointCloudCapture::run(pcl::PointCloud<pcl::PointXYZRGB>& ptCloud, const OPESettings& settings) {
 	pcl::Grabber* grabber = new pcl::OpenNIGrabber();
 

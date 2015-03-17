@@ -1,7 +1,7 @@
 import subprocess
 
 def speak(message, wait=True):
-   speak_process = subprocess.Popen('./untitled.sh "' + message + '"', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+   speak_process = subprocess.Popen('./tts-launch.sh "' + message + '"', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
    if wait:
        speak_process.wait()
 

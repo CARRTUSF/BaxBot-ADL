@@ -67,10 +67,14 @@
             <pElem>/usr/include/eigen3</pElem>
             <pElem>/usr/include/vtk-5.8</pElem>
             <pElem>/usr/include/ni</pElem>
+            <pElem>/opt/ros/hydro/include</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
           <output>bin/${CND_CONF}/${CND_PLATFORM}/ope-new</output>
+          <linkerAddLib>
+            <pElem>/opt/ros/hydro/lib</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerOptionItem>-lboost_system</linkerOptionItem>
             <linkerOptionItem>-lboost_thread</linkerOptionItem>
@@ -87,6 +91,9 @@
             <linkerOptionItem>-lvtkFiltering</linkerOptionItem>
             <linkerOptionItem>-lvtkHybrid</linkerOptionItem>
             <linkerOptionItem>-lvtkRendering</linkerOptionItem>
+            <linkerLibLibItem>rosconsole</linkerLibLibItem>
+            <linkerLibLibItem>roscpp</linkerLibLibItem>
+            <linkerLibLibItem>roscpp_serialization</linkerLibLibItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>

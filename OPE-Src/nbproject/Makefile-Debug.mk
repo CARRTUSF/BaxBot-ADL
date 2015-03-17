@@ -60,7 +60,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lboost_system -lboost_thread -lOpenNI -lpcl_common -lpcl_features -lpcl_filters -lpcl_io -lpcl_search -lpcl_segmentation -lpcl_surface -lpcl_visualization -lvtkCommon -lvtkFiltering -lvtkHybrid -lvtkRendering
+LDLIBSOPTIONS=-L/opt/ros/hydro/lib -lboost_system -lboost_thread -lOpenNI -lpcl_common -lpcl_features -lpcl_filters -lpcl_io -lpcl_search -lpcl_segmentation -lpcl_surface -lpcl_visualization -lvtkCommon -lvtkFiltering -lvtkHybrid -lvtkRendering -lrosconsole -lroscpp -lroscpp_serialization
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -73,47 +73,47 @@ bin/${CND_CONF}/${CND_PLATFORM}/ope-new: ${OBJECTFILES}
 ${OBJECTDIR}/src/InertiaCalculations.o: src/InertiaCalculations.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/InertiaCalculations.o src/InertiaCalculations.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -I/opt/ros/hydro/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/InertiaCalculations.o src/InertiaCalculations.cpp
 
 ${OBJECTDIR}/src/Minimization.o: src/Minimization.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Minimization.o src/Minimization.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -I/opt/ros/hydro/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Minimization.o src/Minimization.cpp
 
 ${OBJECTDIR}/src/OPEMain.o: src/OPEMain.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OPEMain.o src/OPEMain.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -I/opt/ros/hydro/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OPEMain.o src/OPEMain.cpp
 
 ${OBJECTDIR}/src/OPESettings.o: src/OPESettings.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OPESettings.o src/OPESettings.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -I/opt/ros/hydro/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OPESettings.o src/OPESettings.cpp
 
 ${OBJECTDIR}/src/OPEUtils.o: src/OPEUtils.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OPEUtils.o src/OPEUtils.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -I/opt/ros/hydro/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/OPEUtils.o src/OPEUtils.cpp
 
 ${OBJECTDIR}/src/ObjectPoseEstimator.o: src/ObjectPoseEstimator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ObjectPoseEstimator.o src/ObjectPoseEstimator.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -I/opt/ros/hydro/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/ObjectPoseEstimator.o src/ObjectPoseEstimator.cpp
 
 ${OBJECTDIR}/src/Plane.o: src/Plane.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Plane.o src/Plane.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -I/opt/ros/hydro/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/Plane.o src/Plane.cpp
 
 ${OBJECTDIR}/src/PointCloudCapture.o: src/PointCloudCapture.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/PointCloudCapture.o src/PointCloudCapture.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -I/opt/ros/hydro/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/PointCloudCapture.o src/PointCloudCapture.cpp
 
 ${OBJECTDIR}/src/SQFitting.o: src/SQFitting.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/SQFitting.o src/SQFitting.cpp
+	$(COMPILE.cc) -g -Iinclude -I/usr/include/pcl-1.7 -I/usr/include/eigen3 -I/usr/include/vtk-5.8 -I/usr/include/ni -I/opt/ros/hydro/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/SQFitting.o src/SQFitting.cpp
 
 # Subprojects
 .build-subprojects:

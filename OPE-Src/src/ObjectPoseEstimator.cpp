@@ -94,19 +94,19 @@ SQParameters ObjectPoseEstimator::calculateObjectPose(pcl::PointCloud<pcl::Point
         gridSizes[s] = MAX_VOXEL - (s * SCALE_DIFF);
     }
 
-    pcl::PointCloud<pcl::PointXYZ>::Ptr smoothCloudPtr (new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
-    pcl::MovingLeastSquares<pcl::PointXYZ, pcl::PointXYZ> mls;
-    mls.setComputeNormals (false);
-
-    // Set parameters
-    mls.setInputCloud (cloudPtr);
-    mls.setPolynomialFit (true);
-    mls.setSearchMethod (tree);
-    mls.setSearchRadius (0.03);
-
-    // Reconstruct
-    mls.process (*smoothCloudPtr);
+//    pcl::PointCloud<pcl::PointXYZ>::Ptr smoothCloudPtr (new pcl::PointCloud<pcl::PointXYZ>);
+//    pcl::search::KdTree<pcl::PointXYZ>::Ptr tree (new pcl::search::KdTree<pcl::PointXYZ>);
+//    pcl::MovingLeastSquares<pcl::PointXYZ, pcl::PointXYZ> mls;
+//    mls.setComputeNormals (false);
+//
+//    // Set parameters
+//    mls.setInputCloud (cloudPtr);
+//    mls.setPolynomialFit (true);
+//    mls.setSearchMethod (tree);
+//    mls.setSearchRadius (0.03);
+//
+//    // Reconstruct
+//    mls.process (*smoothCloudPtr);
 
     /* 
      * Calculate first error differences
@@ -117,8 +117,8 @@ SQParameters ObjectPoseEstimator::calculateObjectPose(pcl::PointCloud<pcl::Point
     double errorValue = 0;
     double prevErrorValue = 0;
 
-    fittingProcess.estimateInitialParameters(*smoothCloudPtr, sqEstimate);
-    errorValue = fittingProcess.qualityOfFit(*smoothCloudPtr, sqEstimate);
+    fittingProcess.estimateInitialParameters(*cloudPtr, sqEstimate);
+    errorValue = fittingProcess.qualityOfFit(*cloudPtr, sqEstimate);
     errorDiff = abs(prevErrorValue - errorValue);
     prevErrorValue = errorValue;
 
@@ -132,12 +132,12 @@ SQParameters ObjectPoseEstimator::calculateObjectPose(pcl::PointCloud<pcl::Point
     for (int j = 0; j < NUM_SCALES && errorDiff >= errorThreshold; j++) {
         if (j != NUM_SCALES - 1) {
             pcl::VoxelGrid<pcl::PointXYZ> grid;
-            grid.setInputCloud (smoothCloudPtr);
+            grid.setInputCloud (cloudPtr);
             grid.setLeafSize (gridSizes[j], gridSizes[j], gridSizes[j]);
             grid.filter (downsampledCloud);
 
         } else {
-            downsampledCloud = *smoothCloudPtr;
+            downsampledCloud = *cloudPtr;
         }
 
         /*
