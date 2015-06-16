@@ -26,6 +26,7 @@
 import baxter_interface
 from baxter_interface import CHECK_VERSION
 
+
 class BaxterControl:
     def __init__(self):
         # initialize interfaces

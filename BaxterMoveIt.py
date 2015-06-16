@@ -32,6 +32,10 @@ import moveit_msgs.msg
 
 import sys
 
+LEFT_ARM = 0
+RIGHT_ARM  = 1
+
+
 class BaxterMoveIt:
     def __init__(self):
         moveit_commander.roscpp_initialize(sys.argv)
@@ -39,11 +43,11 @@ class BaxterMoveIt:
         # initialize MoveIt
         self.robot = moveit_commander.RobotCommander()
         self.scene = moveit_commander.PlanningSceneInterface()
-        self.group = moveit_commander.MoveGroupCommander("left_arm")
-        self.display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path',
-                                                            moveit_msgs.msg.DisplayTrajectory)
+        self.display_trajectory_publisher = rospy.Publisher('/move_group/display_planned_path', 
+                                                                  moveit_msgs.msg.DisplayTrajectory)
 
-        print "============ Reference frame: %s" % self.group.get_end_effector_link()
+        self.leftArmGroup = moveit_commander.MoveGroupCommander("left_arm")
+        self.rightArmGroup = moveit_commander.MoveGroupCommander("right_arm")
 
     def __del__(self):
         moveit_commander.roscpp_shutdown()
@@ -63,11 +67,7 @@ class BaxterMoveIt:
         objPose.pose.orientation.w = objRot[3]
         self.scene.add_box(objName, objPose, (objSize[0], objSize[1], objSize[2]))
 
-        # print objName
-        # print objPose
-        # print objSize
-
-    def createPath(self, objpos, gripperorientation=[0, 0.74419, 0, 0.6679]):
+    def createPath(self, arm, objpos, gripperorientation = [0, 0.74419, 0, 0.6679]):
         pose_target = geometry_msgs.msg.Pose()
         pose_target.orientation.x = gripperorientation[0]
         pose_target.orientation.y = gripperorientation[1]
@@ -77,6 +77,21 @@ class BaxterMoveIt:
         pose_target.position.y = objpos[1]
         pose_target.position.z = objpos[2]
 
-        self.group.set_start_state_to_current_state()
-        self.group.set_pose_target(pose_target)
-        return self.group.plan()
+        if arm == LEFT_ARM:
+            self.leftArmGroup.set_start_state_to_current_state()
+            self.leftArmGroup.set_pose_target(pose_target)
+            return self.leftArmGroup.plan()
+        elif arm == RIGHT_ARM:
+            self.rightArmGroup.set_start_state_to_current_state()
+            self.rightArmGroup.set_pose_target(pose_target)
+            return self.rightArmGroup.plan()
+        else:
+            return -1
+
+    def executePlan(self, arm, plan):
+        if arm == LEFT_ARM:
+            return self.leftArmGroup.execute(plan)
+        elif arm == RIGHT_ARM:
+            return self.rightArmGroup.execute(plan)
+        else:
+            return -1
