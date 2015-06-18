@@ -1,6 +1,13 @@
-(noname)+
-* POWERBOT MYAH METERS-binary.stl
+(noname)+++
+* KINECT
 1
+box
+0.03 0.05 0.12
+0.142 0 0.54
+0.710353 0 0 0.703845
+0 0 0 0
+* POWERBOT
+2
 mesh
 4695 2130
 0.188574 0.47625 0.41302
